@@ -15,10 +15,11 @@ module.exports = {
     getOneUser(req, res) {
         User.findOne({ _id: req.params.userId })
             .select('-__v').populate('friends').populate('thoughts')
-            .then(async (user) =>
-                !user
-                    ? res.status(404).json({ message: 'No user with that ID' })
-                    : res.json(user))
+            .then(async (user) => {
+                if (!user) {
+                    return res.status(404).json({ message: 'No user with that ID' })
+                } res.json(user)
+            })
             .catch((err) => {
                 console.log(err);
                 return res.status(500).json(err);
@@ -32,11 +33,12 @@ module.exports = {
     },
 
     updateUser(req, res) {
-        User.findOneAndUpdate({ _id: req.params.userId }, { $set: req.body}, { runValidators: true, new: true})
-            .then(async (user) =>
-                !user
-                    ? res.status(404).json({ message: 'No user with that ID' })
-                    : res.json(user))
+        User.findOneAndUpdate({ _id: req.params.userId }, { $set: req.body }, { runValidators: true, new: true })
+            .then(async (user) => {
+                if (!user) {
+                    return res.status(404).json({ message: 'No user with that ID' })
+                } res.json(user)
+            })
             .catch((err) => {
                 console.log(err);
                 return res.status(500).json(err);
@@ -45,10 +47,11 @@ module.exports = {
 
     deleteUser(req, res) {
         User.findOneAndRemove({ _id: req.params.userId })
-            .then(async (user) =>
-                !user
-                    ? res.status(404).json({ message: 'No user with that ID' })
-                    : res.json(user))
+            .then(async (user) => {
+                if (!user) {
+                    return res.status(404).json({ message: 'No user with that ID' })
+                } res.json(user)
+            })
             .catch((err) => {
                 console.log(err);
                 return res.status(500).json(err);
@@ -56,11 +59,12 @@ module.exports = {
     },
 
     addFriend(req, res) {
-        User.findOneAndUpdate({ _id: req.params.userId }, { $addToSet: { friends: req.params.friendId}}, { new: true})
-            .then(async (user) =>
-                !user
-                    ? res.status(404).json({ message: 'No user with that ID' })
-                    : res.json(user))
+        User.findOneAndUpdate({ _id: req.params.userId }, { $addToSet: { friends: req.params.friendId } }, { new: true })
+            .then(async (user) => {
+                if (!user) {
+                    return res.status(404).json({ message: 'No user with that ID' })
+                } res.json(user)
+            })
             .catch((err) => {
                 console.log(err);
                 return res.status(500).json(err);
@@ -68,11 +72,12 @@ module.exports = {
     },
 
     removeFriend(req, res) {
-        User.findOneAndUpdate({ _id: req.params.userId }, { $pull: { friends: req.params.friendId}}, { new: true})
-            .then(async (user) =>
-                !user
-                    ? res.status(404).json({ message: 'No user with that ID' })
-                    : res.json(user))
+        User.findOneAndUpdate({ _id: req.params.userId }, { $pull: { friends: req.params.friendId } }, { new: true })
+            .then(async (user) => {
+                if (!user) {
+                    return res.status(404).json({ message: 'No user with that ID' })
+                } res.json(user)
+            })
             .catch((err) => {
                 console.log(err);
                 return res.status(500).json(err);
