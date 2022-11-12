@@ -1,5 +1,4 @@
 const { Schema, Types } = require('mongoose');
-const { mainModule } = require('process');
 
 const reactionSchema = new Schema({
     reactionId: {
