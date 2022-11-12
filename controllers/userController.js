@@ -6,10 +6,7 @@ module.exports = {
             .then(async (users) => {
                 return res.json(users);
             })
-            .catch((err) => {
-                console.log(err);
-                return res.status(500).json(err);
-            });
+            .catch((err) => res.status(500).json(err));
     },
 
     getOneUser(req, res) {
@@ -20,10 +17,7 @@ module.exports = {
                     return res.status(404).json({ message: 'No user with that ID' })
                 } res.json(user)
             })
-            .catch((err) => {
-                console.log(err);
-                return res.status(500).json(err);
-            });
+            .catch((err) => res.status(500).json(err));
     },
 
     createUser(req, res) {
@@ -39,10 +33,7 @@ module.exports = {
                     return res.status(404).json({ message: 'No user with that ID' })
                 } res.json(user)
             })
-            .catch((err) => {
-                console.log(err);
-                return res.status(500).json(err);
-            });
+            .catch((err) => res.status(500).json(err));
     },
 
     deleteUser(req, res) {
@@ -52,10 +43,7 @@ module.exports = {
                     return res.status(404).json({ message: 'No user with that ID' })
                 } res.json(user)
             })
-            .catch((err) => {
-                console.log(err);
-                return res.status(500).json(err);
-            });
+            .catch((err) => res.status(500).json(err));
     },
 
     addFriend(req, res) {
@@ -65,10 +53,7 @@ module.exports = {
                     return res.status(404).json({ message: 'No user with that ID' })
                 } res.json(user)
             })
-            .catch((err) => {
-                console.log(err);
-                return res.status(500).json(err);
-            });
+            .catch((err) => res.status(500).json(err));
     },
 
     removeFriend(req, res) {
@@ -78,9 +63,6 @@ module.exports = {
                     return res.status(404).json({ message: 'No user with that ID' })
                 } res.json(user)
             })
-            .catch((err) => {
-                console.log(err);
-                return res.status(500).json(err);
-            });
+            .catch((err) => res.status(500).json(err));
     }
 };

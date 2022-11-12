@@ -6,10 +6,7 @@ module.exports = {
             .then(async (thoughts) => {
                 return res.json(thoughts);
             })
-            .catch((err) => {
-                console.log(err);
-                return res.status(500).json(err);
-            });
+            .catch((err) => res.status(500).json(err));
     },
 
     getOneThought(req, res) {
@@ -20,10 +17,7 @@ module.exports = {
                     return res.status(404).json({ message: 'No thought with that ID' })
                 } res.json(thought)
             })
-            .catch((err) => {
-                console.log(err);
-                return res.status(500).json(err);
-            });
+            .catch((err) => res.status(500).json(err));
     },
 
     createThought(req, res) {
@@ -44,10 +38,7 @@ module.exports = {
                     return res.status(404).json({ message: 'No thought with that ID' })
                 } res.json(thought)
             })
-            .catch((err) => {
-                console.log(err);
-                return res.status(500).json(err);
-            });
+            .catch((err) => res.status(500).json(err));
     },
 
     deleteThought(req, res) {
@@ -59,7 +50,7 @@ module.exports = {
             })
             .then(userData => {
                 if (!userData) {
-                    return res.status(404).json({ message: 'Thought del.' })
+                    return res.status(404).json({ message: 'Thought not deleted.' })
                 } res.json({ message: 'Thought deleted successfully.' })
             })
             .catch((err) => res.status(500).json(err));
@@ -76,6 +67,12 @@ module.exports = {
     },
 
     removeReaction(req, res) {
-
+        Thought.findOndAndUpdate({ _id: req.params.thoughtId }, { $pull: { reactions: req.params.reactionId } }, { new: true })
+            .then(async (reaction) => {
+                if (!reaction) {
+                    return res.status(404).json({ message: 'No reaction with this ID.' })
+                } return Thought.findOneAndUpdate({ thought: req.params.thoughtId }, { $pull: { reactions: req.params.reactionId } }, { new: true })
+            })
+            .catch((err) => res.status(500).json(err));
     }
 };
