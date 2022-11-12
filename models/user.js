@@ -1,19 +1,33 @@
-const { Schema, model, Types } = require('mongoose');  // does this need Types?
+const { Schema, model } = require('mongoose'); 
 
-const userSchema = new Schema({  // does this not need to be new mongoose.Schema?
+const userSchema = new Schema({  
     username: {
-
+        type: String,
+        required: true,
+        unique: true,
+        trim: true
     },
     email: {
-
+        type: String,
+        required: true,
+        unique: true,
+        match: [/.+@.+\..+/, 'Must be a valid e-mail.']
     },
-    thoughts: {
+    thoughts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Thought'
+    }],
+    friends: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }]
+}, {
+    toJSON: { virtuals: true },
+    id: false
+}
+);
 
-    },
-    friends: {
-
-    }
-});
+userSchema.virtual('friendCount').get(function () {return this.friends.length});
 
 const User = model('User', userSchema);
 
