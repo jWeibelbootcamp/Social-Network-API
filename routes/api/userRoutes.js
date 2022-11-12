@@ -13,7 +13,7 @@ const {
 // localhost:3001/api/users
 
 
-// localhost:3001/api/user/:id
+// localhost:3001/api/users/:id
 
 
 // localhost:3001/api/users/:userId/friends
