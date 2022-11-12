@@ -18,7 +18,7 @@ const reactionSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        // add get later perhaps
+        // add getter later perhaps
     },
 }, {
     toJSON: { getters: true },

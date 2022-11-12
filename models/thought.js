@@ -1,17 +1,18 @@
 const { Schema, model } = require('mongoose'); 
 const reactionSchema = require('./reaction');
+// const dateFormat = require('../utils/dateFormat');
 
 const thoughtSchema = new Schema({  
     thoughtText: {
         type: String,
         required: 'Thought text is required',
         minlength: 1,
-        minlength: 280
+        maxlength: 280
     },
     createdAt: {
         type: Date,
         default: Date.now,
-        // add get later perhaps
+        // get: timeStamp => dateFormat(timeStamp)
     },
     username: {
         type: String, 
